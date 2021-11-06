@@ -2,15 +2,26 @@ import PIL
 import os
 from PIL import Image
 
-trainImages = r'/mnt/d/GANtraining/1_Datasets/sculptures6k/train'
-saveImagesPath = "/mnt/d/GANtraining/1_Datasets/sculptures6k/trainReduced"
-counter = 0
+trainImages = r'/mnt/c/Users/GANproject/1_Datasets/sculptures6k/sculptures6k_full/train'
+saveImagesPath = "/mnt/c/Users/GANproject/1_Datasets/sculptures6k/sculptures6k_red"
+counter = 2913
 os.listdir()
+
+pHeight = 480
+pWidth = 480
 
 for file in os.listdir(trainImages):
     f_img = trainImages +"/"+ file
     img = Image.open(f_img)
-    img = img.resize((320,320))
+    width, height = img.size   # Get dimensions
+    left = (width - pWidth)/2
+    top = (height - pHeight)/2
+    right = (width + pWidth)/2
+    bottom = (height + pHeight)/2
+
+    # Crop the center of the image
+    img = img.crop((left, top, right, bottom))
+
     img.save(f"{saveImagesPath}/"+str(counter)+".png")
     counter += 1
 
